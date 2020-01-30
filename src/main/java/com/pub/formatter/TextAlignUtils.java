@@ -6,6 +6,8 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //Used Format class for formatting text
 public class TextAlignUtils extends Format {
@@ -28,7 +30,8 @@ public class TextAlignUtils extends Format {
 	public StringBuffer format(Object inputText, StringBuffer toAppendTo, FieldPosition pos) {
 
 		String text = inputText.toString();
-		List<String> inputTextList = splitInputString(text);
+		// List<String> inputTextList = splitInputString(text);
+		List<String> inputTextList = splitString(text, width);
 		ListIterator<String> textListItr = inputTextList.listIterator();
 
 		while (textListItr.hasNext()) {
@@ -36,7 +39,6 @@ public class TextAlignUtils extends Format {
 			String numberOfText = textListItr.next();
 
 			if (currentAlignment.equals("LEFT")) {
-
 				toAppendTo.append(numberOfText);
 				padding(toAppendTo, width - numberOfText.length());
 			}
@@ -59,7 +61,10 @@ public class TextAlignUtils extends Format {
 	}
 
 	String format(String s) {
-		return format(s, new StringBuffer(), null).toString();
+
+		String finalString = format(s, new StringBuffer(), null).toString();
+
+		return finalString.substring(0, finalString.length() - 1);
 	}
 
 	@Override
@@ -67,7 +72,7 @@ public class TextAlignUtils extends Format {
 		return source;
 	}
 
-	//split strings in the given width
+	// split strings in the given width
 	private List<String> splitInputString(String inputText) {
 
 		List<String> listText = new ArrayList<String>();
@@ -90,6 +95,20 @@ public class TextAlignUtils extends Format {
 		for (int i = 0; i < numberOfText; i++) {
 			toAppend.append(' ');
 		}
+	}
+
+	// Create new function for split line in a way that whole word consider and
+	// extra space will be removed
+	public List<String> splitString(String text, int lineSize) {
+		List<String> textList = new ArrayList<String>();
+
+		Pattern p = Pattern.compile("\\b.{1," + (lineSize - 1) + "}\\b\\W?");
+		Matcher m = p.matcher(text.trim().replaceAll(" +", " "));
+
+		while (m.find()) {
+			textList.add(m.group().trim());
+		}
+		return textList;
 	}
 
 }

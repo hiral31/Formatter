@@ -14,60 +14,97 @@ public class TextAlignUtilsTest extends TestCase {
 		return new TestSuite(TextAlignUtilsTest.class);
 	}
 
-	String actual = "Spring Data is an umbrella project consisting of independent projects with, in principle, different release cadences. To manage the portfolio, a BOM (Bill of Materials - see this example) is published with a curated set of dependencies on the individual project. The release trains have names, not versions.";
+	/*
+	 * String actual =
+	 * "Spring Data is an umbrella project consisting of independent projects with, in principle, different release cadences. To manage the portfolio, a BOM (Bill of Materials - see this example) is published with a curated set of dependencies on the individual project. The release trains have names, not versions."
+	 * ;
+	 * 
+	 * public void testTextLeftAlign_true() {
+	 * 
+	 * StringBuffer expected = new StringBuffer();
+	 * 
+	 * expected.append("Spring Data is an umbrella project consisting of i\n");
+	 * expected.append("ndependent projects with, in principle, different \n");
+	 * expected.append("release cadences. To manage the portfolio, a BOM (\n");
+	 * expected.append("Bill of Materials - see this example) is published\n");
+	 * expected.append(" with a curated set of dependencies on the individ\n");
+	 * expected.append("ual project. The release trains have names, not ve\n");
+	 * expected.append("rsions.                                           \n");
+	 * 
+	 * TextAlignUtils textAlignUtils = new TextAlignUtils("LEFT", 50);
+	 * 
+	 * assertEquals(expected.toString(), textAlignUtils.format(actual));
+	 * 
+	 * }
+	 * 
+	 * public void testTextRightAlign_true() {
+	 * 
+	 * StringBuffer expected = new StringBuffer();
+	 * 
+	 * expected.append("Spring Data is an umbrella project consisting of i\n");
+	 * expected.append("ndependent projects with, in principle, different \n");
+	 * expected.append("release cadences. To manage the portfolio, a BOM (\n");
+	 * expected.append("Bill of Materials - see this example) is published\n");
+	 * expected.append(" with a curated set of dependencies on the individ\n");
+	 * expected.append("ual project. The release trains have names, not ve\n");
+	 * expected.append("                                           rsions.\n");
+	 * 
+	 * TextAlignUtils textAlignUtils = new TextAlignUtils("RIGHT", 50);
+	 * 
+	 * assertEquals(expected.toString(), textAlignUtils.format(actual));
+	 * 
+	 * }
+	 * 
+	 * public void testTextCenterAlign_true() {
+	 * 
+	 * StringBuffer expected = new StringBuffer();
+	 * 
+	 * expected.append("Spring Data is an umbrella project consisting of i\n");
+	 * expected.append("ndependent projects with, in principle, different \n");
+	 * expected.append("release cadences. To manage the portfolio, a BOM (\n");
+	 * expected.append("Bill of Materials - see this example) is published\n");
+	 * expected.append(" with a curated set of dependencies on the individ\n");
+	 * expected.append("ual project. The release trains have names, not ve\n");
+	 * expected.append("                     rsions.                      \n");
+	 * 
+	 * TextAlignUtils textAlignUtils = new TextAlignUtils("CENTER", 50);
+	 * 
+	 * assertEquals(expected.toString(), textAlignUtils.format(actual));
+	 * 
+	 * }
+	 */
 
-	public void testTextLeftAlign_true() {
+	public void testLeftAlign() {
+		String textToFormat = "This   text should    be left  aligned ";
+		int lineWidth = 10;
+		String formattedText = Formatter.format(Alignment.LEFT, lineWidth, textToFormat);
+		assertEquals("This text \nshould be \nleft      \naligned   ", formattedText);
 
-		StringBuffer expected = new StringBuffer();
+		lineWidth = 20;
+		formattedText = Formatter.format(Alignment.LEFT, lineWidth, textToFormat);
+		assertEquals("This text should be \nleft aligned        ", formattedText);
+	}
 
-		expected.append("Spring Data is an umbrella project consisting of i\n");
-		expected.append("ndependent projects with, in principle, different \n");
-		expected.append("release cadences. To manage the portfolio, a BOM (\n");
-		expected.append("Bill of Materials - see this example) is published\n");
-		expected.append(" with a curated set of dependencies on the individ\n");
-		expected.append("ual project. The release trains have names, not ve\n");
-		expected.append("rsions.                                           \n");
+	public void testRightAlign() {
+		String textToFormat = "This   text should    be right  aligned ";
+		int lineWidth = 10;
+		String formattedText = Formatter.format(Alignment.RIGHT, lineWidth, textToFormat);
+		assertEquals(" This text\n should be\n     right\n   aligned", formattedText);
 
-		TextAlignUtils textAlignUtils = new TextAlignUtils("LEFT", 50);
-
-		assertEquals(expected.toString(), textAlignUtils.format(actual));
+		lineWidth = 20;
+		formattedText = Formatter.format(Alignment.RIGHT, lineWidth, textToFormat);
+		assertEquals(" This text should be\n       right aligned", formattedText);
 
 	}
 
-	public void testTextRightAlign_true() {
+	public void testCenterAlign() {
+		String textToFormat = "This   text should    be center  aligned ";
+		int lineWidth = 10;
+		String formattedText = Formatter.format(Alignment.CENTER, lineWidth, textToFormat);
+		assertEquals("This text \nshould be \n  center  \n aligned  ", formattedText);
 
-		StringBuffer expected = new StringBuffer();
-
-		expected.append("Spring Data is an umbrella project consisting of i\n");
-		expected.append("ndependent projects with, in principle, different \n");
-		expected.append("release cadences. To manage the portfolio, a BOM (\n");
-		expected.append("Bill of Materials - see this example) is published\n");
-		expected.append(" with a curated set of dependencies on the individ\n");
-		expected.append("ual project. The release trains have names, not ve\n");
-		expected.append("                                           rsions.\n");
-
-		TextAlignUtils textAlignUtils = new TextAlignUtils("RIGHT", 50);
-
-		assertEquals(expected.toString(), textAlignUtils.format(actual));
-
+		lineWidth = 20;
+		formattedText = Formatter.format(Alignment.CENTER, lineWidth, textToFormat);
+		assertEquals("This text should be \n   center aligned   ", formattedText);
 	}
-
-	public void testTextCenterAlign_true() {
-
-		StringBuffer expected = new StringBuffer();
-
-		expected.append("Spring Data is an umbrella project consisting of i\n");
-		expected.append("ndependent projects with, in principle, different \n");
-		expected.append("release cadences. To manage the portfolio, a BOM (\n");
-		expected.append("Bill of Materials - see this example) is published\n");
-		expected.append(" with a curated set of dependencies on the individ\n");
-		expected.append("ual project. The release trains have names, not ve\n");
-		expected.append("                     rsions.                      \n");
-
-		TextAlignUtils textAlignUtils = new TextAlignUtils("CENTER", 50);
-
-		assertEquals(expected.toString(), textAlignUtils.format(actual));
-
-	}
-
 }
