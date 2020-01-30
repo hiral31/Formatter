@@ -61,10 +61,15 @@ public class TextAlignUtils extends Format {
 	}
 
 	String format(String s) {
+		if(s!=null && s.length()>0) {
+			String finalString = format(s, new StringBuffer(), null).toString();
 
-		String finalString = format(s, new StringBuffer(), null).toString();
-
-		return finalString.substring(0, finalString.length() - 1);
+			return finalString.substring(0, finalString.length() - 1);
+	
+		}
+		else {
+			return s;
+		}
 	}
 
 	@Override
