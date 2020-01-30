@@ -61,12 +61,11 @@ public class TextAlignUtils extends Format {
 	}
 
 	String format(String s) {
-		if(s!=null && s.length()>0) {
+		if(s!=null && s.length()>0 && !s.equalsIgnoreCase(" ")) {
 			String finalString = format(s, new StringBuffer(), null).toString();
 
 			return finalString.substring(0, finalString.length() - 1);
-	
-		}
+			}
 		else {
 			return s;
 		}
